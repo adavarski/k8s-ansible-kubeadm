@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Program: Initial vagrant.
-# History: 2017/1/16 Kyle.b Release
+
 
 
 function set_hosts() {
