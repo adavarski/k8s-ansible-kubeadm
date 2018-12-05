@@ -1,3 +1,37 @@
+### Vagrant:
+
+Run `vagrant up`. This will automatically provision two VM with Kubernetes cluster installed.
+
+Environment Info:
+Kubernetes version: 1.13 (or latest from repo)
+CNI: Weave-Net
+Default number of nodes: 2
+
+You can edit Vagrantfile and hack/setup-vms.sh for your needs
+
+Example:
+```
+Vagrantfile: 
+  master = 1
+  node = 2
+
+$ diff setup-vms.sh setup-vms.sh.NEW 
+11d10
+< 
+13,14c12,13
+< 192.16.35.11 k8s-m1
+< 
+---
+> 192.16.35.11 k8s-n2
+> 192.16.35.12 k8s-m1
+38c37
+<   HOSTS="192.16.35.10 192.16.35.11"
+---
+>   HOSTS="192.16.35.10 192.16.35.11 192.16.35.12"
+```
+
+### Manual Installation
+
 # Kubeadm Ansible Playbook
 
 Build a Kubernetes cluster using Ansible with kubeadm. The goal is easily install a Kubernetes cluster on machines running:
@@ -28,14 +62,7 @@ node
 
 Before continuing, edit `group_vars/all.yml` to your specified configuration.
 
-For example, I choose to run `flannel` instead of calico, and thus:
-
-```yaml
-# Network implementation('flannel', 'calico')
-network: flannel
-```
-
-**Note:** Depending on your setup, you may need to modify `cni_opts` to an available network interface. By default, `kubeadm-ansible` uses `eth1`. Your default interface may be `eth0`.
+**Note:**  By default, `k8s-ansible-kubeadm` uses `eth1`. Your default interface may be `eth0`.
 
 After going through the setup, run the `site.yaml` playbook:
 
