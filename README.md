@@ -1,9 +1,9 @@
-### Vagrant:
+### Vagrant ENV:
 
 Run `vagrant up`. This will automatically provision two VM with Kubernetes cluster installed.
 
 ```
-Environment Info:
+k8s Environment Info:
 Kubernetes version: 1.13 (or latest from repo)
 CNI: Weave-Net
 Default number of nodes: 2
@@ -81,9 +81,9 @@ $ diff setup-vms.sh setup-vms.sh.NEW
 >   HOSTS="192.16.35.10 192.16.35.11 192.16.35.12"
 ```
 
-### Manual Installation
+## Manual Installation
 
-# Kubeadm Ansible Playbook
+### Kubeadm Ansible Playbook
 
 Build a Kubernetes cluster using Ansible with kubeadm. The goal is easily install a Kubernetes cluster on machines running:
 
@@ -96,7 +96,7 @@ System requirements:
   - Deployment environment must have Ansible `2.4.0+`
   - Master and nodes must have passwordless SSH access
 
-# Usage
+### Usage
 
 Add the system information gathered above into a file called `hosts.ini`. For example:
 ```
@@ -152,7 +152,7 @@ etcd-master1                            1/1       Running   0          23m
 ...
 ```
 
-# Resetting the environment
+### Resetting the environment
 
 Finally, reset all kubeadm installed state using `reset-site.yaml` playbook:
 
