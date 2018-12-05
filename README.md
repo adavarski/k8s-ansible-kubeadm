@@ -8,6 +8,7 @@ Kubernetes version: 1.13 (or latest from repo)
 CNI: Weave-Net
 Default number of nodes: 2
 
+root@k8s-m1:~# export KUBECONFIG=/etc/kubernetes/admin.conf
 root@k8s-m1:~# kubectl get all --all-namespaces
 NAMESPACE     NAME                                        READY   STATUS    RESTARTS   AGE
 kube-system   pod/coredns-86c58d9df4-4tg5l                1/1     Running   0          36m
@@ -38,6 +39,23 @@ kube-system   deployment.apps/kubernetes-dashboard   1/1     1            1     
 NAMESPACE     NAME                                              DESIRED   CURRENT   READY   AGE
 kube-system   replicaset.apps/coredns-86c58d9df4                2         2         2       52m
 kube-system   replicaset.apps/kubernetes-dashboard-79ff88449c   1         1         1       52m
+
+
+root@k8s-m1:~# kubectl get pods -o wide --sort-by="{.spec.nodeName}" --all-namespaces
+NAMESPACE     NAME                                    READY   STATUS    RESTARTS   AGE   IP             NODE     NOMINATED NODE   READINESS GATES
+kube-system   coredns-86c58d9df4-jjdjr                1/1     Running   0          38m   10.32.0.3      k8s-m1   <none>           <none>
+kube-system   coredns-86c58d9df4-4tg5l                1/1     Running   0          38m   10.36.0.0      k8s-n1   <none>           <none>
+kube-system   etcd-k8s-m1                             1/1     Running   0          53m   192.16.35.11   k8s-m1   <none>           <none>
+kube-system   kube-apiserver-k8s-m1                   1/1     Running   0          53m   192.16.35.11   k8s-m1   <none>           <none>
+kube-system   kube-controller-manager-k8s-m1          1/1     Running   3          53m   192.16.35.11   k8s-m1   <none>           <none>
+kube-system   kube-proxy-cbw8d                        1/1     Running   0          53m   192.16.35.11   k8s-m1   <none>           <none>
+kube-system   kube-scheduler-k8s-m1                   1/1     Running   2          53m   192.16.35.11   k8s-m1   <none>           <none>
+kube-system   kube-proxy-cncbd                        1/1     Running   0          45m   192.16.35.10   k8s-n1   <none>           <none>
+kube-system   kubernetes-dashboard-79ff88449c-pqgx8   1/1     Running   0          53m   10.32.0.2      k8s-m1   <none>           <none>
+kube-system   weave-net-ktbvl                         2/2     Running   0          53m   192.16.35.11   k8s-m1   <none>           <none>
+kube-system   weave-net-qzfcx                         2/2     Running   3          45m   192.16.35.10   k8s-n1   <none>           <none>
+root@k8s-m1:~# 
+
 
 ```
 You can edit Vagrantfile and hack/setup-vms.sh for your needs
