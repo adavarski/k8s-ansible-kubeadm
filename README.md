@@ -7,6 +7,38 @@ Environment Info:
 Kubernetes version: 1.13 (or latest from repo)
 CNI: Weave-Net
 Default number of nodes: 2
+
+root@k8s-m1:~# kubectl get all --all-namespaces
+NAMESPACE     NAME                                        READY   STATUS    RESTARTS   AGE
+kube-system   pod/coredns-86c58d9df4-4tg5l                1/1     Running   0          36m
+kube-system   pod/coredns-86c58d9df4-jjdjr                1/1     Running   0          36m
+kube-system   pod/etcd-k8s-m1                             1/1     Running   0          52m
+kube-system   pod/kube-apiserver-k8s-m1                   1/1     Running   0          52m
+kube-system   pod/kube-controller-manager-k8s-m1          1/1     Running   3          52m
+kube-system   pod/kube-proxy-cbw8d                        1/1     Running   0          52m
+kube-system   pod/kube-proxy-cncbd                        1/1     Running   0          44m
+kube-system   pod/kube-scheduler-k8s-m1                   1/1     Running   2          52m
+kube-system   pod/kubernetes-dashboard-79ff88449c-pqgx8   1/1     Running   0          52m
+kube-system   pod/weave-net-ktbvl                         2/2     Running   0          51m
+kube-system   pod/weave-net-qzfcx                         2/2     Running   3          44m
+
+NAMESPACE     NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)         AGE
+default       service/kubernetes             ClusterIP   10.96.0.1        <none>        443/TCP         52m
+kube-system   service/kube-dns               ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP   52m
+kube-system   service/kubernetes-dashboard   ClusterIP   10.111.210.147   <none>        443/TCP         52m
+
+NAMESPACE     NAME                        DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+kube-system   daemonset.apps/kube-proxy   2         2         2       2            2           <none>          52m
+kube-system   daemonset.apps/weave-net    2         2         2       2            2           <none>          51m
+
+NAMESPACE     NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+kube-system   deployment.apps/coredns                2/2     2            2           52m
+kube-system   deployment.apps/kubernetes-dashboard   1/1     1            1           52m
+
+NAMESPACE     NAME                                              DESIRED   CURRENT   READY   AGE
+kube-system   replicaset.apps/coredns-86c58d9df4                2         2         2       52m
+kube-system   replicaset.apps/kubernetes-dashboard-79ff88449c   1         1         1       52m
+
 ```
 You can edit Vagrantfile and hack/setup-vms.sh for your needs
 
