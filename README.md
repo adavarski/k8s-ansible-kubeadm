@@ -2,12 +2,12 @@
 
 Run `vagrant up`. This will automatically provision two VM with Kubernetes cluster installed.
 
-``
+```
 Environment Info:
 Kubernetes version: 1.13 (or latest from repo)
 CNI: Weave-Net
 Default number of nodes: 2
-``
+```
 You can edit Vagrantfile and hack/setup-vms.sh for your needs
 
 Example:
