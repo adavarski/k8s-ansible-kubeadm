@@ -151,6 +151,25 @@ NAME                                    READY     STATUS    RESTARTS   AGE
 etcd-master1                            1/1       Running   0          23m
 ...
 ```
+### Helm 
+```
+$ kubectl create clusterrolebinding default-sa-admin --user system:serviceaccount:kube-system:default  --clusterrole cluster-admin
+
+$ helm install stable/prometheus --name prometheus -f prometheus.yml
+
+Edit grafana.yml and config:
+        lookup("file", "LOCAL_PATH to file/kubernetes_cluster_monitoring_prometheus.json")
+
+$ helm install stable/grafana --name grafana -f ./grafana.yml
+
+$ kubectl get pods --namespace default -l "app=grafana" -o jsonpath="{.items[0].metadata.name}"
+grafana-65bcd6c887-blvwz
+
+$ kubectl --namespace default port-forward grafana-65bcd6c887-blvwz 3000
+
+BROWSER: http://localhost:3000 --- admin:admin
+
+```
 
 ### Resetting the environment
 
