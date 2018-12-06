@@ -164,6 +164,68 @@ Edit grafana.yml and config:
 
 $ helm install stable/grafana --name grafana -f ./grafana.yml
 
+root@k8s-m1:~# kubectl get all --all-namespaces
+NAMESPACE     NAME                                             READY   STATUS    RESTARTS   AGE
+default       pod/grafana-65bcd6c887-t2qhk                     1/1     Running   0          111s
+default       pod/prometheus-alertmanager-777d964c6b-mkbkj     2/2     Running   0          6m36s
+default       pod/prometheus-kube-state-metrics-5c5bc7-z25n7   1/1     Running   0          6m36s
+default       pod/prometheus-node-exporter-zf9qj               1/1     Running   0          6m36s
+default       pod/prometheus-pushgateway-5f457bff66-m6272      1/1     Running   0          6m36s
+default       pod/prometheus-server-9f8c98dbc-m4r2g            2/2     Running   0          6m36s
+kube-system   pod/coredns-86c58d9df4-q8f5g                     1/1     Running   0          21m
+kube-system   pod/coredns-86c58d9df4-ssllq                     1/1     Running   0          21m
+kube-system   pod/etcd-k8s-m1                                  1/1     Running   0          23m
+kube-system   pod/kube-apiserver-k8s-m1                        1/1     Running   0          23m
+kube-system   pod/kube-controller-manager-k8s-m1               1/1     Running   0          23m
+kube-system   pod/kube-proxy-988d9                             1/1     Running   0          23m
+kube-system   pod/kube-proxy-r5c6c                             1/1     Running   0          22m
+kube-system   pod/kube-scheduler-k8s-m1                        1/1     Running   0          23m
+kube-system   pod/kubernetes-dashboard-79ff88449c-xzqc6        1/1     Running   0          23m
+kube-system   pod/tiller-deploy-6f4dbc6d67-qs6qn               1/1     Running   0          9m14s
+kube-system   pod/weave-net-4lcgq                              2/2     Running   0          22m
+kube-system   pod/weave-net-pxhjh                              2/2     Running   0          23m
+
+NAMESPACE     NAME                                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)         AGE
+default       service/grafana                         ClusterIP   10.108.233.101   <none>        80/TCP          111s
+default       service/kubernetes                      ClusterIP   10.96.0.1        <none>        443/TCP         24m
+default       service/prometheus-alertmanager         ClusterIP   10.102.138.183   <none>        80/TCP          6m37s
+default       service/prometheus-kube-state-metrics   ClusterIP   None             <none>        80/TCP          6m37s
+default       service/prometheus-node-exporter        ClusterIP   None             <none>        9100/TCP        6m37s
+default       service/prometheus-pushgateway          ClusterIP   10.105.86.60     <none>        9091/TCP        6m37s
+default       service/prometheus-server               ClusterIP   10.104.179.45    <none>        80/TCP          6m37s
+kube-system   service/kube-dns                        ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP   24m
+kube-system   service/kubernetes-dashboard            ClusterIP   10.105.227.240   <none>        443/TCP         24m
+kube-system   service/tiller-deploy                   ClusterIP   10.110.194.207   <none>        44134/TCP       9m14s
+
+NAMESPACE     NAME                                      DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+default       daemonset.apps/prometheus-node-exporter   1         1         1       1            1           <none>          6m37s
+kube-system   daemonset.apps/kube-proxy                 2         2         2       2            2           <none>          24m
+kube-system   daemonset.apps/weave-net                  2         2         2       2            2           <none>          24m
+
+NAMESPACE     NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE
+default       deployment.apps/grafana                         1/1     1            1           111s
+default       deployment.apps/prometheus-alertmanager         1/1     1            1           6m37s
+default       deployment.apps/prometheus-kube-state-metrics   1/1     1            1           6m37s
+default       deployment.apps/prometheus-pushgateway          1/1     1            1           6m37s
+default       deployment.apps/prometheus-server               1/1     1            1           6m37s
+kube-system   deployment.apps/coredns                         2/2     2            2           24m
+kube-system   deployment.apps/kubernetes-dashboard            1/1     1            1           24m
+kube-system   deployment.apps/tiller-deploy                   1/1     1            1           9m15s
+
+NAMESPACE     NAME                                                   DESIRED   CURRENT   READY   AGE
+default       replicaset.apps/grafana-65bcd6c887                     1         1         1       111s
+default       replicaset.apps/prometheus-alertmanager-777d964c6b     1         1         1       6m37s
+default       replicaset.apps/prometheus-kube-state-metrics-5c5bc7   1         1         1       6m37s
+default       replicaset.apps/prometheus-pushgateway-5f457bff66      1         1         1       6m37s
+default       replicaset.apps/prometheus-server-9f8c98dbc            1         1         1       6m37s
+kube-system   replicaset.apps/coredns-86c58d9df4                     2         2         2       23m
+kube-system   replicaset.apps/kubernetes-dashboard-79ff88449c        1         1         1       23m
+kube-system   replicaset.apps/tiller-deploy-6f4dbc6d67               1         1         1       9m14s
+
+$ helm list
+NAME      	REVISION	UPDATED                 	STATUS  	CHART           	APP VERSION	NAMESPACE
+grafana   	1       	Thu Dec  6 11:13:36 2018	DEPLOYED	grafana-1.17.3  	5.3.2      	default  
+prometheus	1       	Thu Dec  6 11:08:49 2018	DEPLOYED	prometheus-7.3.4	2.4.3      	default 
 $ kubectl get pods --namespace default -l "app=grafana" -o jsonpath="{.items[0].metadata.name}"
 grafana-65bcd6c887-blvwz
 
