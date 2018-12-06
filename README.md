@@ -231,8 +231,7 @@ grafana-65bcd6c887-blvwz
 
 $ kubectl --namespace default port-forward grafana-65bcd6c887-blvwz 3000
 
-BROWSER: http://localhost:3000 --- admin:admin
-
+BROWSER: http://localhost:3000 --- admin:admin --- import json file if needed.
 ```
 
 ### Resetting the environment
