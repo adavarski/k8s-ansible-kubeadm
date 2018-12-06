@@ -2,8 +2,6 @@ alertmanager:
   persistentVolume:
     enabled: false
 
-pushgateway:
-
 server:
   persistentVolume:
     enabled: false
