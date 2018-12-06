@@ -155,6 +155,8 @@ etcd-master1                            1/1       Running   0          23m
 ```
 $ kubectl create clusterrolebinding default-sa-admin --user system:serviceaccount:kube-system:default  --clusterrole cluster-admin
 
+$ helm init
+
 $ helm install stable/prometheus --name prometheus -f prometheus.yml
 
 Edit grafana.yml and config:
