@@ -337,6 +337,20 @@ kube-system   replicaset.apps/coredns-86c58d9df4                                
 kube-system   replicaset.apps/kubernetes-dashboard-79ff88449c                               1         1         1       56m
 kube-system   replicaset.apps/tiller-deploy-6f4dbc6d67                                      1         1         1       41m
 
+$ helm list
+NAME               	REVISION	UPDATED                 	STATUS  	CHART               	APP VERSION	NAMESPACE
+dining-waterbuffalo	1       	Thu Dec  6 11:39:53 2018	DEPLOYED	nginx-ingress-0.29.2	0.20.0     	default  
+grafana            	1       	Thu Dec  6 11:43:09 2018	DEPLOYED	grafana-1.17.3      	5.3.2      	default  
+prometheus         	1       	Thu Dec  6 11:42:00 2018	DEPLOYED	prometheus-7.3.4    	2.4.3      	default  
+trendsetting-tapir 	1       	Thu Dec  6 11:39:04 2018	DEPLOYED	nginx-ingress-0.29.2	0.20.0     	default  
+
+$ kubectl get pods --namespace default -l "app=grafana" -o jsonpath="{.items[0].metadata.name}"
+grafana-65bcd6c887-blvwz
+
+$ kubectl --namespace default port-forward grafana-65bcd6c887-blvwz 3000
+
+BROWSER: http://localhost:3000 --- admin:admin --- import json file if needed.
+
 ````
 
 
